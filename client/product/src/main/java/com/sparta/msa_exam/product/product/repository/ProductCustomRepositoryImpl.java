@@ -13,19 +13,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sparta.msa_exam.product.product.domain.QProduct.product;
+import static com.sparta.msa_exam.product.product.domain.QProduct.*;
 
 
 @RequiredArgsConstructor
-public class ProductSearchImpl implements ProductSearchRepository {
+@Repository
+public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 
     private final JPAQueryFactory queryFactory;
-    private final QProduct product = QProduct.product;
 
     @Override
     public Page<ProductResponseDto> searchProducts(ProductSearchDto searchDto, Pageable pageable) {

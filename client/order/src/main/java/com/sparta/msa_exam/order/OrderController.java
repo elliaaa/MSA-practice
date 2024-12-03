@@ -3,6 +3,7 @@ package com.sparta.msa_exam.order;
 import com.sparta.msa_exam.order.dto.OrderRequestDto;
 import com.sparta.msa_exam.order.dto.OrderResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     
     private final OrderService orderService;
-
 
     @PostMapping
     public OrderResponseDto createOrder(@RequestBody OrderRequestDto orderRequestDto,
@@ -22,6 +22,7 @@ public class OrderController {
 
 
     @GetMapping("/{orderId}")
+    @Cacheable(value = "orderCache", key = "#orderId")
     public OrderResponseDto getOrderById(@PathVariable Long orderId) {
         return orderService.getOrderById(orderId);
     }
